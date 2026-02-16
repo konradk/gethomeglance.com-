@@ -1,10 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
-import screenshotApp from '../screenshots/app.png'
+import { BrandLink } from '../components/BrandLink'
 import screenshotCamera from '../screenshots/camera.png'
 import screenshotFavorites from '../screenshots/facvourites.png'
+import heroImage from '../screenshots/hero.jpeg'
+import heroImageWebp from '../screenshots/hero.webp'
 import screenshotPlayer from '../screenshots/player.png'
 import screenshotSettings from '../screenshots/settings.png'
+import homeglanceMainVideo from '../video/HomeGlance-www-compressed.mp4'
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -38,11 +41,13 @@ const controlGroups = [
   },
   {
     title: 'Climate and covers',
-    description: 'Set target temperatures and control covers without opening dashboards.',
+    description:
+      'Set target temperatures and control covers without opening dashboards.',
   },
   {
     title: 'Media players and cameras',
-    description: 'Playback controls, volume adjustment, and camera views in one place.',
+    description:
+      'Playback controls, volume adjustment, and camera views in one place.',
   },
   {
     title: 'Locks and scenes',
@@ -71,13 +76,15 @@ const setupSteps = [
 const screenshotSlots = [
   {
     title: 'Connection setup screenshot',
-    description: 'Settings view with URL field, token field, and Test Connection result.',
+    description:
+      'Settings view with URL field, token field, and Test Connection result.',
     image: screenshotSettings,
     alt: 'HomeGlance connection setup screenshot',
   },
   {
     title: 'Favorites management screenshot',
-    description: 'Entity picker with search, filters, and drag-and-drop ordering.',
+    description:
+      'Entity picker with search, filters, and drag-and-drop ordering.',
     image: screenshotFavorites,
     alt: 'HomeGlance favorites management screenshot',
   },
@@ -95,17 +102,7 @@ function App() {
       <div className="site-wrap">
         <div className="hero-stage">
           <header className="topbar">
-            <a href="/" className="brand">
-              <img
-                src="/homeglance-icon.png"
-                alt="HomeGlance app icon"
-                className="brand-icon"
-              />
-              <span className="brand-text">
-                <span className="brand-word">HomeGlance</span>
-                <span className="brand-subtitle">for Home Assistant</span>
-              </span>
-            </a>
+            <BrandLink />
             <a href="#updates" className="notify-link">
               Get Notified
             </a>
@@ -113,10 +110,12 @@ function App() {
 
           <section className="hero-block">
             <div className="hero-content">
-              <h1 className="hero-title">Your smart home favorites, at a glance.</h1>
+              <h1 className="hero-title">
+                Your smart home favorites, at a glance.
+              </h1>
               <p className="hero-copy">
-                Instantly control your Home Assistant lights, climate, media, and
-                cameras from your Mac menu bar. No browser tabs required.
+                Instantly control your Home Assistant lights, climate, media,
+                and cameras from your Mac menu bar. No browser tabs required.
               </p>
               <form
                 id="updates"
@@ -139,15 +138,31 @@ function App() {
 
             <div className="hero-media">
               <div className="hero-app-frame">
-                <img
-                  src={screenshotApp}
-                  alt="HomeGlance app interface running on macOS"
-                  className="hero-app-image"
-                />
+                <picture>
+                  <source srcSet={heroImageWebp} type="image/webp" />
+                  <img
+                    src={heroImage}
+                    alt="HomeGlance app interface running on macOS"
+                    className="hero-app-image"
+                  />
+                </picture>
               </div>
             </div>
           </section>
         </div>
+
+        <section
+          className="hero-video-block"
+          aria-label="HomeGlance demo video"
+        >
+          <video
+            className="hero-demo-video"
+            src={homeglanceMainVideo}
+            controls
+            playsInline
+            preload="metadata"
+          />
+        </section>
 
         <section id="features" className="feature-block">
           <h2 className="feature-title">Features</h2>
@@ -155,8 +170,8 @@ function App() {
             <article className="feature-copy-card">
               <h3>Designed for speed.</h3>
               <p>
-                A favorites-first approach. Pin your daily devices to the menu bar
-                for instant access. Drag and drop to reorder based on your
+                A favorites-first approach. Pin your daily devices to the menu
+                bar for instant access. Drag and drop to reorder based on your
                 workflow.
               </p>
             </article>
@@ -171,7 +186,8 @@ function App() {
               </div>
               <h4 className="media-title">Favorites menu screenshot</h4>
               <p className="media-copy">
-                Favorites list with quick access controls and drag-to-order flow.
+                Favorites list with quick access controls and drag-to-order
+                flow.
               </p>
             </article>
 
@@ -179,8 +195,8 @@ function App() {
               <h3>Secure & Native.</h3>
               <p>
                 Built exclusively for macOS with Swift. Your long-lived access
-                token is safely stored in the macOS Keychain, and states update in
-                real-time via WebSocket.
+                token is safely stored in the macOS Keychain, and states update
+                in real-time via WebSocket.
               </p>
             </article>
 
@@ -195,7 +211,8 @@ function App() {
                 </div>
                 <h4 className="media-title">Rich controls screenshot</h4>
                 <p className="media-copy">
-                  Climate, camera, and media controls presented in a compact panel.
+                  Climate, camera, and media controls presented in a compact
+                  panel.
                 </p>
               </div>
               <h3>More than just toggles.</h3>
@@ -211,11 +228,13 @@ function App() {
         <section id="details" className="details-block">
           <div className="section-head">
             <p className="section-kicker">Feature Deep Dive</p>
-            <h2 className="details-title">Built for real Home Assistant workflows.</h2>
+            <h2 className="details-title">
+              Built for real Home Assistant workflows.
+            </h2>
             <p className="details-copy">
-              HomeGlance is designed to reduce friction when you are on your Mac.
-              It combines a minimal menu bar interface with the controls you
-              actually use throughout the day.
+              HomeGlance is designed to reduce friction when you are on your
+              Mac. It combines a minimal menu bar interface with the controls
+              you actually use throughout the day.
             </p>
           </div>
 
@@ -234,8 +253,8 @@ function App() {
             <p className="section-kicker">Supported Entities</p>
             <h2 className="details-title">What you can control</h2>
             <p className="details-copy">
-              HomeGlance supports the Home Assistant entities most people use every
-              day, so quick actions stay quick.
+              HomeGlance supports the Home Assistant entities most people use
+              every day, so quick actions stay quick.
             </p>
           </div>
           <div className="controls-grid">
@@ -300,9 +319,9 @@ function App() {
             Assistant.
           </p>
           <div className="footer-links">
-            <a href="#updates">Contact</a>
+            <a href="mailto:contact@homeglance.com">Contact</a>
             <span>·</span>
-            <a href="#updates">Privacy</a>
+            <Link to="/privacy-policy">Privacy</Link>
           </div>
         </footer>
       </div>
