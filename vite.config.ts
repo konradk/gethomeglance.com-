@@ -19,7 +19,15 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      pages: [{ path: '/' }],
+      prerender: {
+        enabled: true,
+      },
+      spa: {
+        enabled: false,
+      },
+    }),
     viteReact(),
   ],
 })
