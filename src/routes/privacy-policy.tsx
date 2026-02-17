@@ -144,7 +144,7 @@ function PrivacyPolicyPage() {
               </li>
               <li>
                 You can request deletion of support communication records by
-                emailing us at contact@homeglance.com.
+                emailing us at contact@gethomeglance.com.
               </li>
             </ul>
           </section>
@@ -188,8 +188,8 @@ function PrivacyPolicyPage() {
             <h2>10. Contact</h2>
             <p>
               For privacy questions, contact us at{' '}
-              <a href="mailto:contact@homeglance.com">
-                contact@homeglance.com
+              <a href="mailto:contact@gethomeglance.com">
+                contact@gethomeglance.com
               </a>
               .
             </p>

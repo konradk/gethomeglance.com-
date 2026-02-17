@@ -473,7 +473,7 @@ function App() {
             Assistant.
           </p>
           <div className="footer-links">
-            <a href="mailto:contact@homeglance.com">Contact</a>
+            <a href="mailto:contact@gethomeglance.com">Contact</a>
             <span>·</span>
             <Link to="/privacy-policy">Privacy</Link>
           </div>
