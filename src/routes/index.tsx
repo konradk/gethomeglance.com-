@@ -1,5 +1,19 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
+import {
+  Activity,
+  ArrowRight,
+  Blinds,
+  Camera,
+  CircleDot,
+  Droplets,
+  Fan,
+  Lightbulb,
+  LockKeyhole,
+  Music2,
+  Sparkles,
+  Thermometer,
+  ToggleRight,
+} from 'lucide-react'
 import { BrandLink } from '../components/BrandLink'
 import screenshotCamera from '../screenshots/camera.png'
 import screenshotFavorites from '../screenshots/facvourites.png'
@@ -8,6 +22,7 @@ import heroImageWebp from '../screenshots/hero.webp'
 import screenshotPlayer from '../screenshots/player.png'
 import screenshotSettings from '../screenshots/settings.png'
 import homeglanceMainVideo from '../video/HomeGlance-www-compressed.mp4'
+import type { LucideIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -34,24 +49,70 @@ const detailedFeatures = [
   },
 ]
 
-const controlGroups = [
+type DeviceType = {
+  label: string
+  icon: LucideIcon
+}
+
+type ControlGroup = {
+  title: string
+  description: string
+  icon: LucideIcon
+  devices: Array<DeviceType>
+}
+
+const controlGroups: Array<ControlGroup> = [
   {
-    title: 'Lights, switches, and fans',
-    description: 'One-click on/off with brightness support for lights.',
+    title: 'Lights and everyday toggles',
+    description:
+      'Quick on/off actions with brightness for lights and one-click control for common toggle entities.',
+    icon: Lightbulb,
+    devices: [
+      { label: 'Lights', icon: Lightbulb },
+      { label: 'Switches', icon: ToggleRight },
+      { label: 'Fans', icon: Fan },
+      { label: 'Input booleans', icon: ToggleRight },
+      { label: 'Humidifiers', icon: Droplets },
+    ],
   },
   {
     title: 'Climate and covers',
     description:
-      'Set target temperatures and control covers without opening dashboards.',
+      'Set thermostat targets and move covers from the same menu bar panel.',
+    icon: Thermometer,
+    devices: [
+      { label: 'Climate', icon: Thermometer },
+      { label: 'Covers', icon: Blinds },
+    ],
   },
   {
     title: 'Media players and cameras',
     description:
-      'Playback controls, volume adjustment, and camera views in one place.',
+      'Handle playback controls, volume changes, and camera views in one place.',
+    icon: Camera,
+    devices: [
+      { label: 'Media players', icon: Music2 },
+      { label: 'Cameras', icon: Camera },
+    ],
   },
   {
     title: 'Locks and scenes',
-    description: 'Lock/unlock doors and trigger scenes in seconds.',
+    description: 'Lock and unlock doors, then trigger scenes in seconds.',
+    icon: LockKeyhole,
+    devices: [
+      { label: 'Locks', icon: LockKeyhole },
+      { label: 'Scenes', icon: Sparkles },
+    ],
+  },
+  {
+    title: 'Sensors and status entities',
+    description:
+      'Pin read-only entities to favorites so motion, temperature, and other state updates stay visible.',
+    icon: Activity,
+    devices: [
+      { label: 'Sensors (status)', icon: Thermometer },
+      { label: 'Binary sensors (status)', icon: CircleDot },
+    ],
   },
 ]
 
@@ -93,6 +154,49 @@ const screenshotSlots = [
     description: 'Expanded rows showing climate, media, and camera controls.',
     image: screenshotCamera,
     alt: 'HomeGlance controls panel screenshot',
+  },
+]
+
+const faqItems = [
+  {
+    question: 'Will HomeGlance work with Apple HomeKit?',
+    answer:
+      'HomeGlance connects to Home Assistant, not directly to Apple HomeKit. If your devices are available in Home Assistant (including via HomeKit integrations), you can control them from HomeGlance.',
+  },
+  {
+    question: 'Is HomeGlance a one-time payment?',
+    answer:
+      'Yes. HomeGlance is planned as a one-time purchase, not a monthly subscription.',
+  },
+  {
+    question: 'Is HomeGlance safe to use?',
+    answer:
+      'HomeGlance connects directly to your Home Assistant instance. Your long-lived token is stored in macOS Keychain, and there is no required third-party cloud relay for everyday control.',
+  },
+  {
+    question: 'Can I use HomeGlance on macOS 13?',
+    answer:
+      'Not for the launch release. HomeGlance targets macOS 14 and newer.',
+  },
+  {
+    question: 'Does HomeGlance run on Windows?',
+    answer:
+      'Not currently. HomeGlance is a native macOS app and does not run on Windows.',
+  },
+  {
+    question: 'Do I need Home Assistant Cloud (Nabu Casa)?',
+    answer:
+      'No. HomeGlance works with any reachable Home Assistant instance, whether local-only or remotely exposed through your preferred setup.',
+  },
+  {
+    question: 'Can I control multiple device types?',
+    answer:
+      'Yes. HomeGlance is built for mixed setups, including lights, climate, covers, media players, cameras, locks, and scenes.',
+  },
+  {
+    question: 'Does HomeGlance replace the full Home Assistant dashboard?',
+    answer:
+      'It is designed for fast everyday actions from the menu bar. You can still use the full Home Assistant dashboard for deeper automations and admin tasks.',
   },
 ]
 
@@ -253,17 +357,45 @@ function App() {
             <p className="section-kicker">Supported Entities</p>
             <h2 className="details-title">What you can control</h2>
             <p className="details-copy">
-              HomeGlance supports the Home Assistant entities most people use
-              every day, so quick actions stay quick.
+              HomeGlance supports all currently implemented control types:
+              lights, switches, fans, input booleans, humidifiers, climate,
+              covers, media players, cameras, locks, and scenes, plus sensors
+              and binary sensors for live status in favorites.
             </p>
           </div>
           <div className="controls-grid">
-            {controlGroups.map((group) => (
-              <article key={group.title} className="controls-card">
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-              </article>
-            ))}
+            {controlGroups.map((group) => {
+              const GroupIcon = group.icon
+
+              return (
+                <article key={group.title} className="controls-card">
+                  <div className="controls-card-head">
+                    <span className="controls-group-icon" aria-hidden="true">
+                      <GroupIcon />
+                    </span>
+                    <h3>{group.title}</h3>
+                  </div>
+                  <p>{group.description}</p>
+                  <ul className="controls-device-list">
+                    {group.devices.map((device) => {
+                      const DeviceIcon = device.icon
+
+                      return (
+                        <li key={device.label} className="controls-device-chip">
+                          <span
+                            className="controls-device-chip-icon"
+                            aria-hidden="true"
+                          >
+                            <DeviceIcon />
+                          </span>
+                          <span>{device.label}</span>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </article>
+              )
+            })}
           </div>
         </section>
 
@@ -309,6 +441,28 @@ function App() {
                   <img src={slot.image} alt={slot.alt} />
                 </div>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="faq" className="faq-block">
+          <div className="section-head">
+            <p className="section-kicker">Frequently Asked Questions</p>
+            <h2 className="details-title">Answers before launch</h2>
+            <p className="details-copy">
+              Common questions about compatibility, pricing, security, and
+              system requirements.
+            </p>
+          </div>
+          <div className="faq-list">
+            {faqItems.map((item) => (
+              <details key={item.question} className="faq-item">
+                <summary>
+                  <span>{item.question}</span>
+                  <span className="faq-icon" aria-hidden="true" />
+                </summary>
+                <p className="faq-answer">{item.answer}</p>
+              </details>
             ))}
           </div>
         </section>

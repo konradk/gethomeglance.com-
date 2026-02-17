@@ -170,7 +170,7 @@ a {
 }
 
 .hero-content {
-  max-width: 35rem;
+  max-width: 35 rem;
   /*transform: translateY(-0.35rem);*/
   animation: fade-rise 560ms ease-out both;
 }
